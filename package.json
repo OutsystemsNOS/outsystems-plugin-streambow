@@ -1,0 +1,21 @@
+{
+  "name": "outsystems-plugin-streambow",
+  "version": "1.0.0",
+  "description": "OutSystems Plugin for using Streambow SDK speed connection tests",
+  "cordova": {
+    "id": "outsystems-plugin-streambow",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/andregrillo"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "André Grillo - OutSystems",
+  "license": "MIT"
+}

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="outsystems-plugin-streambow" version="1.0.0"
+	xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>outsystems-plugin-streambow</name>
+	<js-module name="Streambow" src="www/outsystems-plugin-streambow.js">
+		<clobbers target="Streambow" />
+	</js-module>
+	<platform name="ios">
+		<!-- Hooks for Swift Support -->
+		<hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+		<hook type="after_plugin_add" src="hooks/add_swift_support.js" />
+
+		<!-- iOS Source & Header Files -->
+		<source-file src="src/ios/Streambow.swift" />
+		<source-file src="src/ios/AppDelegate+Streambow.m" />
+		<header-file src="src/ios/AppDelegate+Streambow.h" />
+
+		<!-- Streambow SDK -->
+		<framework src="src/ios/FeedbackFramework.xcframework/ios-arm64/FeedbackFramework.framework" custom="true" embed= "true"/>
+
+		<!-- Cocoapods dependency -->
+	    <podspec>
+	      <pods use-frameworks="true">
+	        <pod name="SwiftProtobuf" spec="~> 1.15" />
+	      </pods>
+	    </podspec>		
+
+	    <!-- Background Modes -->
+	    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+				<array>
+					<string>bluetooth-central</string>
+					<string>fetch</string>
+					<string>location</string>
+					<string>processing</string>
+				</array>
+		</config-file>
+
+		<!-- Arbitrary Loads -->
+		<config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+				<dict>
+					<key>NSAllowsArbitraryLoads</key>
+					<true/>
+				</dict>
+		</config-file>
+
+		<!-- Location Permissions -->
+		<config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
+
+		<!-- Background Tasks Identifiers -->
+		<config-file target="*-Info.plist" parent="BGTaskSchedulerPermittedIdentifiers">
+			<array>
+				<string>BackgroundAppRefreshIdentifier</string>
+				<string>BackgroundProcessingIdentifier</string>
+			</array>
+		</config-file>
+
+		<config-file parent="/*" target="config.xml">
+			<feature name="Streambow">
+				<param name="ios-package" value="Streambow" />
+			</feature>
+		</config-file>
+	</platform>
+</plugin>
+
+
