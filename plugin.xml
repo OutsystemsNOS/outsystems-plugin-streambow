@@ -69,6 +69,20 @@
 			</feature>
 		</config-file>
 	</platform>
+
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="Streambow">
+				<param name="android-package" value="com.outsystems.Streambow" />
+			</feature>
+		</config-file>
+		<!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
+		<source-file src="src/android/Streambow.java" target-dir="src/com/streambow" />
+
+		<!-- Streambow SDK -->
+		<resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" />
+
+	</platform>
 </plugin>
 
 
