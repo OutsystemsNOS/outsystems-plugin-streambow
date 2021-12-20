@@ -78,9 +78,13 @@
 		</config-file>
 		<!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
 		<source-file src="src/android/Streambow.java" target-dir="src/com/streambow" />
+		<framework src="src/android/Streambow.gradle" custom="true" type="gradleReference" />
 
 		<!-- Streambow SDK -->
 		<resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" />
+
+		<!-- Hook for editing settings.gradle -->
+		<hook type="before_plugin_install" src="hooks/edit_settings_gradle.js"/>
 
 	</platform>
 </plugin>
