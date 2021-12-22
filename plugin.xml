@@ -78,13 +78,20 @@
 		</config-file>
 		<!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
 		<source-file src="src/android/Streambow.java" target-dir="src/com/streambow" />
-		<framework src="src/android/Streambow.gradle" custom="true" type="gradleReference" />
+		<!--<framework src="src/android/Streambow.gradle" custom="true" type="gradleReference" /> -->
+		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+		<source-file src="src/android/build-extras.gradle" target-dir="app" />
 
 		<!-- Streambow SDK -->
-		<resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" />
+		<!-- <resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" /> -->
+		<!--<resource-file src="src/android/libs/XperienceLib.aar" target="libs/XperienceLib.aar" />-->
+		<source-file src="src/android/libs/XperienceLib.aar" target-dir="libs" /> 
 
 		<!-- Hook for editing settings.gradle -->
 		<hook type="before_plugin_install" src="hooks/edit_settings_gradle.js"/>
+		<hook type="before_plugin_install" src="hooks/edit_gradle_properties.js"/>
+		<hook type="after_plugin_install" src="hooks/move_sdk.js"/>
+		<!--<hook type="before_plugin_install" src="hooks/copy_gradle_extras.js"/> -->
 
 	</platform>
 </plugin>
