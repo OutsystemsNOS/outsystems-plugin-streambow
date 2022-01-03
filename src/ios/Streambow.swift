@@ -13,8 +13,6 @@ import CoreLocation
 class Streambow: CDVPlugin, CLLocationManagerDelegate {
     var pluginResult = CDVPluginResult()
     var pluginCommand = CDVInvokedUrlCommand()
-    let locationManager = CLLocationManager()
-    var userCoordinates: CLLocationCoordinate2D?
     var resultArray: [String]?
     
     func setNotifications() {
