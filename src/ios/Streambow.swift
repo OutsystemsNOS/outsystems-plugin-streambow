@@ -25,12 +25,11 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     func performTest(_ command: CDVInvokedUrlCommand){
         self.pluginCommand = command
         self.pluginResult = nil
-        self.pluginResult?.keepCallback = true
+        self.pluginResult?.setKeepCallbackAs(true)
         self.resultArray = [String]()
         self.setNotifications()
         
         print(">>> Test Started")
-        self.pluginResult?.setKeepCallbackAs(true)
         NetworkTest().performTests(customerID: "NOS12345") { success in
             if success {
                 print("\n>>> Test done <<<\n")
@@ -54,7 +53,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     //Streambow Notification Methods
     @objc func dwNotification(notification: Notification) {
         guard let message = notification.userInfo!["dwResult"] else { return }
-        print(">>> dwNotification Message: \(message)")
+//        print(">>> dwNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json)
@@ -63,7 +62,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     
     @objc func upNotification(notification: Notification) {
         guard let message = notification.userInfo!["upResult"] else { return }
-        print(">>> nupNotification Message: \(message)")
+//        print(">>> nupNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json)
@@ -72,7 +71,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     
     @objc func pingNotification(notification: Notification) {
         guard let message = notification.userInfo!["pingResult"] else { return }
-        print(">>> pingNotification Message: \(message)")
+//        print(">>> pingNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json)
@@ -80,3 +79,4 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     }
     
 }
+
