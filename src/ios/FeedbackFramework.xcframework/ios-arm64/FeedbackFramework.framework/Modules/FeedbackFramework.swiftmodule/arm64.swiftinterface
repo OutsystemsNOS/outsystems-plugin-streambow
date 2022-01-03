@@ -206,8 +206,8 @@ extension FeedbackFramework.YoutubeDiagnostic : FeedbackFramework.YTPlayerViewDe
   @objc override dynamic public init()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers public class Main : ObjectiveC.NSObject {
-  public func initializer()
+@_inheritsConvenienceInitializers @objc public class Main : ObjectiveC.NSObject {
+  @objc public func initializer()
   @objc override dynamic public init()
   @objc deinit
 }
@@ -216,12 +216,12 @@ extension FeedbackFramework.YoutubeDiagnostic : FeedbackFramework.YTPlayerViewDe
   @objc override dynamic public init()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers public class NetworkTest : ObjectiveC.NSObject {
-  public func performTests(completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
+@objc @_inheritsConvenienceInitializers public class ScheduleTest : ObjectiveC.NSObject {
   @objc override dynamic public init()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers public class ScheduleTest : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc public class NetworkTest : ObjectiveC.NSObject {
+  @objc public func performTests(customerID: Swift.String?, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }

@@ -37,9 +37,9 @@
 - (BOOL)streambow_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self streambow_application:application didFinishLaunchingWithOptions:launchOptions];//original call
     
-    Streambow *streambowSDK = [[Streambow alloc]init];
-    [streambowSDK SDKsetup];
-    NSLog(@">>> StreambowSDK initilized <<<");
+    Main *sdk = [[Main alloc] init];
+    [sdk initializer];
+    NSLog(@"\n>>> StreambowSDK initialized <<<\n");
     return YES;
 }
 @end

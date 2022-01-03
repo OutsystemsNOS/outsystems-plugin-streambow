@@ -8,6 +8,8 @@
 #import "AppDelegate.h"
 #import <objc/runtime.h>
 
+@import FeedbackFramework;
+
 @interface AppDelegate (Streambow)
 
 @end

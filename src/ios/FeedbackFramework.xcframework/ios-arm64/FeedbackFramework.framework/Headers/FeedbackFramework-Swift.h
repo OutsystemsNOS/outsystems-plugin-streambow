@@ -244,12 +244,16 @@ SWIFT_CLASS("_TtC17FeedbackFramework15LocationManager")
 
 SWIFT_CLASS("_TtC17FeedbackFramework4Main")
 @interface Main : NSObject
+- (void)initializer;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSString;
+@class NSNumber;
 
 SWIFT_CLASS("_TtC17FeedbackFramework11NetworkTest")
 @interface NetworkTest : NSObject
+- (void)performTestsWithCustomerID:(NSString * _Nullable)customerID completion:(void (^ _Nonnull)(BOOL))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -276,7 +280,6 @@ SWIFT_CLASS("_TtC17FeedbackFramework10Traceroute")
 
 @class SimplePing;
 @class NSData;
-@class NSNumber;
 
 @interface Traceroute (SWIFT_EXTENSION(FeedbackFramework)) <SimplePingDelegate>
 - (void)simplePing:(SimplePing * _Nonnull)pinger didStartWithAddress:(NSData * _Nonnull)address;
