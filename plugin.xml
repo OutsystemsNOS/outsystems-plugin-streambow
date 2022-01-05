@@ -73,7 +73,7 @@
 	<platform name="android">
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="Streambow">
-				<param name="android-package" value="com.outsystems.Streambow" />
+				<param name="android-package" value="com.streambow.Streambow" />
 			</feature>
 		</config-file>
 		<!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
