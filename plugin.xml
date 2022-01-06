@@ -21,6 +21,9 @@
 
 		<!-- Cocoapods dependency -->
 	    <podspec>
+	      <config>
+	      	<source url="https://github.com/apple/swift-protobuf.git" />
+	      </config>
 	      <pods use-frameworks="true">
 	        <pod name="SwiftProtobuf" spec="~> 1.15" />
 	      </pods>
