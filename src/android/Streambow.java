@@ -42,6 +42,7 @@ public class Streambow extends CordovaPlugin {
                             callbackContext.error("Error: Test results are null");
                         }
                     }
+                    callbackContext.success(testProgress.getProgress() + "%");
                     break;
                 case TEST_STARTED:
                     Log.i(TAG, ">>> Test STARTED <<<");
