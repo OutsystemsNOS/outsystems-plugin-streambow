@@ -43,10 +43,12 @@ public class Streambow extends CordovaPlugin {
                             callbackContext.error("Error: Test results are null");
                         }
                     }
+
                     // Preserve callback and send progress
-                    //PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
-                    //pluginResult.setKeepCallback(true);
-                    //callbackContext.sendPluginResult(pluginResult);
+                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
+                    pluginResult.setKeepCallback(true);
+                    callbackContext.sendPluginResult(pluginResult);
+                //callbackContext.success(testProgress.getProgress() + "%");
                 break;
                 case TEST_STARTED:
                     Log.i(TAG, ">>> Test STARTED <<<");
@@ -67,8 +69,12 @@ public class Streambow extends CordovaPlugin {
         this.callbackContext = callbackContext;
         if (action.equals("performTest")) {
             String testID = args.getString(0);
-            Log.i(TAG, "\n>>> testID: " + testID + " <<<\n");
+            Log.i(TAG, ">>> testID: " + testID + " <<<");
             this.performTest(testID, callbackContext);
+            return true;
+        } else if (action.equals("preTest")) {
+            Log.i(TAG, ">>> PreTest called <<<");
+            this.preTest();
             return true;
         }
         return false;
@@ -76,11 +82,16 @@ public class Streambow extends CordovaPlugin {
 
     private void performTest(String testID, CallbackContext callbackContext) {
         this.xperience = Xperience.getInstance(this.cordova.getContext());
-        Xperience.preStart(this.cordova.getContext());
+        //Xperience.preStart(this.cordova.getContext());
         if (this.xperience.startTest(this.testCallback, testID)){
-            Log.i(TAG, "\n>>> Service Requested <<<\n");
+            Log.i(TAG, ">>> Service Requested <<<");
         } else {
-            Log.i(TAG, "\n>>> Couldn't start service <<<\n");
+            Log.i(TAG, ">>> Couldn't start service <<<");
         }
+    }
+
+    private void preTest(){
+        Xperience.preStart(this.cordova.getContext());
+        callbackContext.success("preTest initiated");
     }
 }
