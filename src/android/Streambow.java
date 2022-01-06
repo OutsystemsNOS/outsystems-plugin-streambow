@@ -10,6 +10,7 @@ import com.streambow.xperience.xperience.Xperience;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,8 +43,11 @@ public class Streambow extends CordovaPlugin {
                             callbackContext.error("Error: Test results are null");
                         }
                     }
-                    callbackContext.success(testProgress.getProgress() + "%");
-                    break;
+                    // Preserve callback and send progress
+                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
+                    pluginResult.setKeepCallback(true);
+                    callbackContext.sendPluginResult(pluginResult);
+                break;
                 case TEST_STARTED:
                     Log.i(TAG, ">>> Test STARTED <<<");
                     break;
