@@ -44,9 +44,9 @@ public class Streambow extends CordovaPlugin {
                         }
                     }
                     // Preserve callback and send progress
-                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
-                    pluginResult.setKeepCallback(true);
-                    callbackContext.sendPluginResult(pluginResult);
+                    //PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
+                    //pluginResult.setKeepCallback(true);
+                    //callbackContext.sendPluginResult(pluginResult);
                 break;
                 case TEST_STARTED:
                     Log.i(TAG, ">>> Test STARTED <<<");
