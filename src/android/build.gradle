@@ -1,7 +1,6 @@
 repositories {
     flatDir {
         dirs 'libs'
-        //dirs 'src/main/libs' //fix for cordova-android >= 7.0.0
     }
 }
 
@@ -11,8 +10,6 @@ dependencies {
     implementation 'com.android.support:support-v4:23.2.0'
 
     implementation files('../libs/XperienceLib.aar')
-    //compile(name:'XperienceLib', ext:'aar')
-    //implementation project(':XperienceLib')
     implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
