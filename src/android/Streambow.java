@@ -90,6 +90,7 @@ public class Streambow extends CordovaPlugin {
     }
 
     private void preTest(){
+        Xperience.requestPermission(this.cordova.getActivity());
         Xperience.preStart(this.cordova.getContext());
         callbackContext.success("preTest initiated");
     }
