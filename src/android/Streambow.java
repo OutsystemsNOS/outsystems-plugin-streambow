@@ -31,6 +31,11 @@ public class Streambow extends CordovaPlugin {
             Log.i(TAG, ">>> Test Message: " + testProgress.getMessage() + " <<<");
             switch (testStatus) {
                 case TEST_PROGRESS:
+                    // Preserve callback and send progress
+                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
+                    pluginResult.setKeepCallback(true);
+                    callbackContext.sendPluginResult(pluginResult);
+
                     if (testProgress.getProgress() == 100) {
                         Log.i(TAG, ">>>Test FINISHED <<<");
                         String results = "";
@@ -43,12 +48,6 @@ public class Streambow extends CordovaPlugin {
                             callbackContext.error("Error: Test results are null");
                         }
                     }
-
-                    // Preserve callback and send progress
-                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
-                    pluginResult.setKeepCallback(true);
-                    callbackContext.sendPluginResult(pluginResult);
-                    //callbackContext.success(testProgress.getProgress() + "%");
                 break;
                 case TEST_STARTED:
                     Log.i(TAG, ">>> Test STARTED <<<");
