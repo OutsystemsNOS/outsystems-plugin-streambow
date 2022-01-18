@@ -27,40 +27,44 @@ public class Streambow extends CordovaPlugin {
 
         @Override
         public void progressUpdate(TestProgress testProgress, TestStatus testStatus) {
-            Log.i(TAG, ">>> Test Progress: " + testProgress.getProgress() + "% <<<");
-            Log.i(TAG, ">>> Test Message: " + testProgress.getMessage() + " <<<");
-            switch (testStatus) {
-                case TEST_PROGRESS:
-                    // Preserve callback and send progress
-                    PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
-                    pluginResult.setKeepCallback(true);
-                    callbackContext.sendPluginResult(pluginResult);
+            cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                Log.i(TAG, ">>> Test Progress: " + testProgress.getProgress() + "% <<<");
+                Log.i(TAG, ">>> Test Message: " + testProgress.getMessage() + " <<<");
+                switch (testStatus) {
+                    case TEST_PROGRESS:
+                        // Preserve callback and send progress
+                        PluginResult pluginResult = new  PluginResult(PluginResult.Status.OK, testProgress.getProgress() + "%");
+                        pluginResult.setKeepCallback(true);
+                        callbackContext.sendPluginResult(pluginResult);
 
-                    if (testProgress.getProgress() == 100) {
-                        Log.i(TAG, ">>>Test FINISHED <<<");
-                        String results = "";
-                        if (testProgress.getResult() != null) {
-                            Log.i(TAG, ">>> RESULT STRING JSON: " + testProgress.getResult().getJSON() + " <<<");
-                            results = testProgress.getResult().toString();
-                            callbackContext.success(results);
-                        } else {
-                            Log.i(TAG, ">>> GET RESULT IS NULL <<<");
-                            callbackContext.error("Error: Test results are null");
+                        if (testProgress.getProgress() == 100) {
+                            Log.i(TAG, ">>>Test FINISHED <<<");
+                            String results = "";
+                            if (testProgress.getResult() != null) {
+                                Log.i(TAG, ">>> RESULT STRING JSON: " + testProgress.getResult().getJSON() + " <<<");
+                                results = testProgress.getResult().toString();
+                                callbackContext.success(results);
+                            } else {
+                                Log.i(TAG, ">>> GET RESULT IS NULL <<<");
+                                callbackContext.error("Error: Test results are null");
+                            }
                         }
-                    }
-                break;
-                case TEST_STARTED:
-                    Log.i(TAG, ">>> Test STARTED <<<");
                     break;
-                case TEST_FINISHED:
-                    Log.i(TAG, ">>>Test FINISHED <<<");
-                    break;
-                case TEST_CANCELLED:
-                    Log.i(TAG, ">>>Test cancelled <<<");
-                    callbackContext.error("Error: Test Cancelled");
-                    break;
+                    case TEST_STARTED:
+                        Log.i(TAG, ">>> Test STARTED <<<");
+                        break;
+                    case TEST_FINISHED:
+                        Log.i(TAG, ">>>Test FINISHED <<<");
+                        break;
+                    case TEST_CANCELLED:
+                        Log.i(TAG, ">>>Test cancelled <<<");
+                        callbackContext.error("Error: Test Cancelled");
+                        break;
+                }
             }
-        }
+            }
+            }
     };
 
     @Override
