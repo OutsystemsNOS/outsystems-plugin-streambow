@@ -63,8 +63,7 @@ public class Streambow extends CordovaPlugin {
                         break;
                 }
             }
-            }
-            }
+        } });
     };
 
     @Override
