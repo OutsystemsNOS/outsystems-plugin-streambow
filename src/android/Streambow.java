@@ -23,7 +23,7 @@ public class Streambow extends CordovaPlugin {
     private Xperience xperience;
     private CallbackContext callbackContext;
 
-    private TestCallback testCallback = new TestCallback() {
+    final TestCallback testCallback = new TestCallback() {
 
         @Override
         public void progressUpdate(TestProgress testProgress, TestStatus testStatus) {
@@ -80,7 +80,7 @@ public class Streambow extends CordovaPlugin {
     }
 
     private void performTest(String testID, CallbackContext callbackContext) {
-		cordova.getThreadPool().execute(new Runnable() {
+	cordova.getThreadPool().execute(new Runnable() {
         public void run() {
 			xperience = Xperience.getInstance(cordova.getContext());
 			//Xperience.preStart(this.cordova.getContext());
