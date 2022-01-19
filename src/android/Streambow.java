@@ -82,9 +82,9 @@ public class Streambow extends CordovaPlugin {
     private void performTest(String testID, CallbackContext callbackContext) {
 		cordova.getThreadPool().execute(new Runnable() {
         public void run() {
-			xperience = Xperience.getInstance(this.cordova.getContext());
+			xperience = Xperience.getInstance(cordova.getContext());
 			//Xperience.preStart(this.cordova.getContext());
-			if (xperience.startTest(this.testCallback, testID)){
+			if (xperience.startTest(testCallback, testID)){
 				Log.i(TAG, ">>> Service Requested <<<");
 			} else {
 				Log.i(TAG, ">>> Couldn't start service <<<");
