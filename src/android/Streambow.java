@@ -27,7 +27,7 @@ public class Streambow extends CordovaPlugin {
 
         @Override
         public void progressUpdate(TestProgress testProgress, TestStatus testStatus) {
-			cordova.getThreadPool().execute(new Runnable() {
+	    cordova.getThreadPool().execute(new Runnable() {
             public void run() {
 				Log.i(TAG, ">>> Test Progress: " + testProgress.getProgress() + "% <<<");
 				Log.i(TAG, ">>> Test Message: " + testProgress.getMessage() + " <<<");
