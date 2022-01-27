@@ -66,10 +66,18 @@ public class Streambow extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
-        if (action.equals("performTest")) {
+		if(action.equals("requestPermissions")) {
+			Log.i(TAG, ">>> requesting permissions <<<");
+
+			xperience = Xperience.getInstance(cordova.getContext());
+			Xperience.requestPermission(this.cordova.getActivity());
+			return true;
+		}
+        else if (action.equals("performTest")) {
             String testID = args.getString(0);
             Log.i(TAG, ">>> testID: " + testID + " <<<");
-            this.performTest(testID, callbackContext);
+            
+			this.performTest(testID, callbackContext);
             return true;
         }
         return false;
@@ -79,8 +87,6 @@ public class Streambow extends CordovaPlugin {
 		//request permissions
 		xperience = Xperience.getInstance(cordova.getContext());
 		
-		Xperience.requestPermission(this.cordova.getActivity());
-
 		cordova.getThreadPool().execute(new Runnable() {
 			public void run() {
 				if (xperience.startTest(testCallback, testID)){

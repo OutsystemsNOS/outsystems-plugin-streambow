@@ -4,6 +4,6 @@ exports.performTest = function (success, error, testID) {
         exec(success, error, 'Streambow', 'performTest', [testID]);
 };
 
-exports.preTest = function (success, error) {
-        exec(success, error, 'Streambow', 'preTest');
+exports.requestPermissions = function (success, error) {
+        exec(success, error, 'Streambow', 'requestPermissions');
 };
