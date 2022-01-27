@@ -1,79 +1,79 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="outsystems-plugin-streambow" version="1.0.0"
-    xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>outsystems-plugin-streambow</name>
-    <js-module name="Streambow" src="www/outsystems-plugin-streambow.js">
-        <clobbers target="Streambow" />
-    </js-module>
-    <platform name="ios">
-        <!-- Hooks for Swift Support -->
-        <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        <hook type="after_plugin_add" src="hooks/add_swift_support.js" />
+	xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>outsystems-plugin-streambow</name>
+	<js-module name="Streambow" src="www/outsystems-plugin-streambow.js">
+		<clobbers target="Streambow" />
+	</js-module>
+	<platform name="ios">
+		<!-- Hooks for Swift Support -->
+		<hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+		<hook type="after_plugin_add" src="hooks/add_swift_support.js" />
 
-        <!-- iOS Source & Header Files -->
-        <source-file src="src/ios/Streambow.swift" />
-        <source-file src="src/ios/AppDelegate+Streambow.m" />
-        <header-file src="src/ios/AppDelegate+Streambow.h" />
+		<!-- iOS Source & Header Files -->
+		<source-file src="src/ios/Streambow.swift" />
+		<source-file src="src/ios/AppDelegate+Streambow.m" />
+		<header-file src="src/ios/AppDelegate+Streambow.h" />
 
-        <!-- Streambow SDK -->
-        <framework src="src/ios/FeedbackFramework.xcframework/ios-arm64/FeedbackFramework.framework" custom="true" embed= "true"/>
+		<!-- Streambow SDK -->
+		<framework src="src/ios/FeedbackFramework.xcframework/ios-arm64/FeedbackFramework.framework" custom="true" embed= "true"/>
 
-        <!-- Cocoapods dependency -->
-        <podspec>
-            <config>
-                <source url="https://github.com/apple/swift-protobuf.git" />
-            </config>
-            <pods use-frameworks="true">
-                <pod name="SwiftProtobuf" spec="~> 1.15" />
-            </pods>
-        </podspec>
+		<!-- Cocoapods dependency -->
+	    <podspec>
+	      <config>
+	      	<source url="https://github.com/apple/swift-protobuf.git" />
+	      </config>
+	      <pods use-frameworks="true">
+	        <pod name="SwiftProtobuf" spec="~> 1.15" />
+	      </pods>
+	    </podspec>		
 
-        <!-- Background Modes -->
-        <config-file target="*-Info.plist" parent="UIBackgroundModes">
-            <array>
-                <string>bluetooth-central</string>
-                <string>fetch</string>
-                <string>location</string>
-                <string>processing</string>
-            </array>
-        </config-file>
+	    <!-- Background Modes -->
+	    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+				<array>
+					<string>bluetooth-central</string>
+					<string>fetch</string>
+					<string>location</string>
+					<string>processing</string>
+				</array>
+		</config-file>
 
-        <!-- Arbitrary Loads -->
-        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
-            <dict>
-                <key>NSAllowsArbitraryLoads</key>
-                <true/>
-            </dict>
-        </config-file>
+		<!-- Arbitrary Loads -->
+		<config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+				<dict>
+					<key>NSAllowsArbitraryLoads</key>
+					<true/>
+				</dict>
+		</config-file>
 
-        <!-- Location Permissions -->
-        <config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
-            <string>Please allow the use of your location to improve network diagnostics.</string>
-        </config-file>
-        <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
-            <string>Please allow the use of your location to improve network diagnostics.</string>
-        </config-file>
-        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-            <string>Please allow the use of your location to improve network diagnostics.</string>
-        </config-file>
+		<!-- Location Permissions -->
+		<config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+				<string>Please allow the use of your location to improve network diagnostics.</string>
+		</config-file>
 
-        <!-- Background Tasks Identifiers -->
-        <config-file target="*-Info.plist" parent="BGTaskSchedulerPermittedIdentifiers">
-            <array>
-                <string>BackgroundAppRefreshIdentifier</string>
-                <string>BackgroundProcessingIdentifier</string>
-            </array>
-        </config-file>
+		<!-- Background Tasks Identifiers -->
+		<config-file target="*-Info.plist" parent="BGTaskSchedulerPermittedIdentifiers">
+			<array>
+				<string>BackgroundAppRefreshIdentifier</string>
+				<string>BackgroundProcessingIdentifier</string>
+			</array>
+		</config-file>
 
-        <config-file parent="/*" target="config.xml">
-            <feature name="Streambow">
-                <param name="ios-package" value="Streambow" />
-            </feature>
-        </config-file>
-    </platform>
+		<config-file parent="/*" target="config.xml">
+			<feature name="Streambow">
+				<param name="ios-package" value="Streambow" />
+			</feature>
+		</config-file>
+	</platform>
 
-    <platform name="android">
+	<platform name="android">
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -87,36 +87,31 @@
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        </config-file>
-		<config-file target="../../res/android/xml/network_security_config.xml" parent="/*">
-			<domain-config cleartextTrafficPermitted="true">
-				<domain includeSubdomains="true">demo70.streambow.net</domain>
-				<domain includeSubdomains="true">62.212.68.205</domain>
-			</domain-config>
+        </config-file>		
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="Streambow">
+				<param name="android-package" value="com.streambow.Streambow" />
+			</feature>
 		</config-file>
-        <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="Streambow">
-                <param name="android-package" value="com.streambow.Streambow" />
-            </feature>
-        </config-file>
-        <!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
-        <source-file src="src/android/Streambow.java" target-dir="src/com/streambow" />
-        <!--<framework src="src/android/Streambow.gradle" custom="true" type="gradleReference" /> -->
-        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
-        <source-file src="src/android/build-extras.gradle" target-dir="app" />
 
-        <!-- Streambow SDK -->
-        <!-- <resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" /> -->
-        <!--<resource-file src="src/android/libs/XperienceLib.aar" target="libs/XperienceLib.aar" />-->
-        <source-file src="src/android/libs/XperienceLib.aar" target-dir="libs" />
+		<!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file> -->
+		<source-file src="src/android/Streambow.java" target-dir="src/com/streambow" />
+		<!--<framework src="src/android/Streambow.gradle" custom="true" type="gradleReference" /> -->
+		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+		<source-file src="src/android/build-extras.gradle" target-dir="app" />
 
-        <!-- Hook for editing settings.gradle -->
-        <hook type="before_plugin_install" src="hooks/edit_settings_gradle.js"/>
-        <hook type="before_plugin_install" src="hooks/edit_gradle_properties.js"/>
-        <hook type="after_plugin_install" src="hooks/move_sdk.js"/>
-        <!--<hook type="before_plugin_install" src="hooks/copy_gradle_extras.js"/> -->
+		<!-- Streambow SDK -->
+		<!-- <resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" /> -->
+		<!--<resource-file src="src/android/libs/XperienceLib.aar" target="libs/XperienceLib.aar" />-->
+		<source-file src="src/android/libs/XperienceLib.aar" target-dir="libs" /> 
 
-    </platform>
+		<!-- Hook for editing settings.gradle -->
+		<hook type="before_plugin_install" src="hooks/edit_settings_gradle.js"/>
+		<hook type="before_plugin_install" src="hooks/edit_gradle_properties.js"/>
+		<hook type="after_plugin_install" src="hooks/move_sdk.js"/>
+		<!--<hook type="before_plugin_install" src="hooks/copy_gradle_extras.js"/> -->
+
+	</platform>
+
+	
 </plugin>
-
-
