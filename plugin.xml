@@ -88,12 +88,12 @@
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
-        <config-file parent="/*" target="res/xml/network_security_config.xml" >
-            <domain-config cleartextTrafficPermitted="true">
-                <domain includeSubdomains="true">demo70.streambow.net</domain>
-                <domain includeSubdomains="true">62.212.68.205</domain>
-            </domain-config>
-        </config-file>
+		<config-file target="../../res/android/xml/network_security_config.xml" parent="/*">
+			<domain-config cleartextTrafficPermitted="true">
+				<domain includeSubdomains="true">demo70.streambow.net</domain>
+				<domain includeSubdomains="true">62.212.68.205</domain>
+			</domain-config>
+		</config-file>
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Streambow">
                 <param name="android-package" value="com.streambow.Streambow" />
