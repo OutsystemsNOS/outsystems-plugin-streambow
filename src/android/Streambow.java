@@ -71,31 +71,24 @@ public class Streambow extends CordovaPlugin {
             Log.i(TAG, ">>> testID: " + testID + " <<<");
             this.performTest(testID, callbackContext);
             return true;
-        } else if (action.equals("preTest")) {
-            Log.i(TAG, ">>> PreTest called <<<");
-            this.preTest();
-            return true;
         }
         return false;
     }
 
     private void performTest(String testID, CallbackContext callbackContext) {
-	cordova.getThreadPool().execute(new Runnable() {
-        public void run() {
-			xperience = Xperience.getInstance(cordova.getContext());
-			//Xperience.preStart(this.cordova.getContext());
-			if (xperience.startTest(testCallback, testID)){
-				Log.i(TAG, ">>> Service Requested <<<");
-			} else {
-				Log.i(TAG, ">>> Couldn't start service <<<");
-			}
-		}
-		});
-    }
+		//request permissions
+		xperience = Xperience.getInstance(cordova.getContext());
+		
+		Xperience.requestPermission(this.cordova.getActivity());
 
-    private void preTest(){
-        Xperience.requestPermission(this.cordova.getActivity());
-        Xperience.preStart(this.cordova.getContext());
-        callbackContext.success("preTest initiated");
+		cordova.getThreadPool().execute(new Runnable() {
+			public void run() {
+				if (xperience.startTest(testCallback, testID)){
+					Log.i(TAG, ">>> Service Requested <<<");
+				} else {
+					Log.i(TAG, ">>> Couldn't start service <<<");
+				}
+			}
+		});
     }
 }
