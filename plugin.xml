@@ -95,8 +95,12 @@
         </config-file>		
 
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
-			<service tools:node="merge" android:exported="false" android:name="com.streambow.xperience.services.ServiceTests" />
-			<service tools:node="merge" android:exported="false" android:name="com.streambow.xperience.services.ServiceLauncher" />
+			<service android:exported="false" android:name="com.streambow.xperience.auth.XPerienceAuthenticatorService" tools:node="merge" />
+			<receiver android:exported="false" android:name="com.streambow.xperience.receivers.UninstallBroadcastReceiver" tools:node="merge" />
+			<receiver android:exported="false" android:name="com.streambow.xperience.receivers.LauncherAndroidBroadcastReceiver" tools:node="merge" />
+			<receiver android:exported="false" android:name="com.streambow.xperience.receivers.ShutdownBroadcastReceiver" tools:node="merge" />
+			<receiver android:exported="false" android:name="com.streambow.xperience.receivers.BroadcastReceiverServiceCallsAccess" tools:node="merge" />
+			<receiver android:exported="false" android:name="com.streambow.xperience.receivers.BroadcastReceiverServiceModeAccess" tools:node="merge" />
 		</config-file>
 
 		<config-file parent="/*" target="res/xml/config.xml">
