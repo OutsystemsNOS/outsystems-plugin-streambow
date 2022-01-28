@@ -88,6 +88,12 @@
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>		
+
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<service tools:node="merge" android:exported="false" android:name="com.streambow.xperience.services.ServiceTests" />
+			<service tools:node="merge" android:exported="false" android:name="com.streambow.xperience.services.ServiceLauncher" />
+		</config-file>
+
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="Streambow">
 				<param name="android-package" value="com.streambow.Streambow" />
