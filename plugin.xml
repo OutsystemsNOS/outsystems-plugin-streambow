@@ -74,6 +74,11 @@
 	</platform>
 
 	<platform name="android">
+
+		<edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
+			<manifest xmlns:tools="http://schemas.android.com/tools" />
+		</edit-config>
+
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
