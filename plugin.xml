@@ -75,9 +75,9 @@
 
 	<platform name="android">
 
-		<edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
-			<manifest xmlns:tools="http://schemas.android.com/tools" />
-		</edit-config>
+		 <config-file target="../../config.xml" parent="/widget">
+            <custom-preference name="android-manifest/@xmlns:tools" value="http://schemas.android.com/tools" />
+        </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
@@ -122,6 +122,7 @@
 		<hook type="after_plugin_install" src="hooks/move_sdk.js"/>
 		<!--<hook type="before_plugin_install" src="hooks/copy_gradle_extras.js"/> -->
 
+		<dependency id="cordova-custom-config" version="^5.1.1" />
 	</platform>
 
 	
