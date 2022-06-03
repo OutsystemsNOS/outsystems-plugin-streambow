@@ -6,7 +6,7 @@ repositories {
 
 android {
     packagingOptions {
-        exclude 'google/protobuf/field_mask.proto'
+        pickFirst 'google/protobuf/field_mask.proto'
     }
 }
 
