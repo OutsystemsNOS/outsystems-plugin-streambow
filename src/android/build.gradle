@@ -11,6 +11,7 @@ android {
 	exclude 'google/protobuf/type.proto'
 	exclude 'google/protobuf/api.proto'
 	exclude 'google/protobuf/source_context.proto'
+	exclude 'google/protobuf/empty.proto'
     }
 }
 
