@@ -13,8 +13,8 @@ android {
 	exclude 'google/protobuf/source_context.proto'
 	exclude 'google/protobuf/empty.proto'
 	exclude 'google/protobuf/wrappers.proto'
-	exclude 'google/protobuf/'
 	exclude 'google/protobuf/struct.proto'
+	exclude 'google/protobuf/any.proto'
     }
 }
 
