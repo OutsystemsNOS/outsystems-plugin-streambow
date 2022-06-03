@@ -10,6 +10,7 @@ android {
 	exclude 'google/protobuf/duration.proto'
 	exclude 'google/protobuf/type.proto'
 	exclude 'google/protobuf/api.proto'
+	exclude 'google/protobuf/source_context.proto'
     }
 }
 
