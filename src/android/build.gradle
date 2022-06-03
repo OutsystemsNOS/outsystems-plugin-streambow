@@ -8,6 +8,7 @@ android {
     packagingOptions {
         exclude 'google/protobuf/field_mask.proto'
 	exclude 'google/protobuf/duration.proto'
+	exclude 'google/protobuf/type.proto'
     }
 }
 
