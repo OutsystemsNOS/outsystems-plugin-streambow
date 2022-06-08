@@ -20,6 +20,3 @@ dependencies {
     api 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }
 
-packagingOptions {
-        pickFirst 'com.google.protobuf:protobuf-java:3.11.0'
-}
