@@ -20,3 +20,10 @@ dependencies {
     api 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }
 
+android {
+    // [...]
+    packagingOptions {
+        pickFirst 'protobuf.meta'
+    }
+}
+
