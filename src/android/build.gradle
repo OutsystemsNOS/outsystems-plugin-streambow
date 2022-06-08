@@ -22,6 +22,6 @@ dependencies {
 
 android {
     packagingOptions {
-        exclude 'META-INF/google/protobuf/field_mask.proto'
+        pickFirst  'META-INF/*'
     }
 }
