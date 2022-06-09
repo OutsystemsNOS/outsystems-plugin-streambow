@@ -20,7 +20,7 @@ dependencies {
     api 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }
 
-android {
+/*android {
     packagingOptions {
         exclude 'google/protobuf/field_mask.proto'
         exclude 'google/protobuf/duration.proto'
@@ -34,7 +34,7 @@ android {
         exclude 'google/protobuf/timestamp.proto'
         exclude 'google/protobuf/*'
     }
-
+*/
 
 
 }
