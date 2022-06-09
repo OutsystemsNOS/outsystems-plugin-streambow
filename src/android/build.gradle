@@ -33,4 +33,10 @@ android {
         exclude 'google/protobuf/any.proto'
         exclude 'google/protobuf/timestamp.proto'       
     }
+    dependenciesInfo {
+        // Disables dependency metadata when building APKs.
+        includeInApk = false
+        // Disables dependency metadata when building Android App Bundles.
+        includeInBundle = false
+    }
 }
