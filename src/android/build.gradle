@@ -10,7 +10,7 @@ dependencies {
     implementation 'com.android.support:support-v4:23.2.0'
 
     implementation files('../libs/XperienceLib.aar')
-    implementation 'com.google.firebase:firebase-core:16.0.7' 
+    implementation 'com.google.firebase:firebase-core:19.0.2' 
     
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -33,10 +33,7 @@ android {
         exclude 'google/protobuf/any.proto'
         exclude 'google/protobuf/timestamp.proto'       
     }
-    dependenciesInfo {
-        // Disables dependency metadata when building APKs.
-        includeInApk = false
-        // Disables dependency metadata when building Android App Bundles.
-        includeInBundle = false
-    }
+
+
+
 }
