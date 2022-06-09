@@ -31,7 +31,8 @@ android {
         exclude 'google/protobuf/wrappers.proto'
         exclude 'google/protobuf/struct.proto'
         exclude 'google/protobuf/any.proto'
-        exclude 'google/protobuf/timestamp.proto'       
+        exclude 'google/protobuf/timestamp.proto'
+        exclude 'google/protobuf/*'
     }
 
 
