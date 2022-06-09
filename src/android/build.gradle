@@ -20,3 +20,18 @@ dependencies {
     api 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }
 
+android{
+    packagingOptions {
+        exclude 'google/protobuf/field_mask.proto'
+        exclude 'google/protobuf/duration.proto'
+        exclude 'google/protobuf/type.proto'
+        exclude 'google/protobuf/api.proto'
+        exclude 'google/protobuf/source_context.proto'
+        exclude 'google/protobuf/empty.proto'
+        exclude 'google/protobuf/wrappers.proto'
+        exclude 'google/protobuf/struct.proto'
+        exclude 'google/protobuf/any.proto'
+        exclude 'google/protobuf/timestamp.proto'
+        exclude 'google/protobuf/*'
+    }
+}
