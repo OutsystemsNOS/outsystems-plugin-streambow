@@ -34,6 +34,11 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
             NetworkTest().performTests(customerID: testID) { success in
                 if success {
                     print("\n>>> Test done <<<\n")
+                    if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
+                       let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
+                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
+                    }
                 } else {
                     print("\n>>> Not registered <<<\n")
                 }
