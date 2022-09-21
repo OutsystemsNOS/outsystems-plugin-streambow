@@ -71,7 +71,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     //Streambow Notification Methods
     @objc func dwNotification(notification: Notification) {
         guard let message = notification.userInfo!["dwResult"] else { return }
-        //print(">>> dwNotification Message: \(message)")
+        print(">>> dwNotification Message: \(message)")
         NSLog(">>> dwNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
@@ -81,7 +81,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     
     @objc func upNotification(notification: Notification) {
         guard let message = notification.userInfo!["upResult"] else { return }
-        //print(">>> nupNotification Message: \(message)")
+        print(">>> nupNotification Message: \(message)")
         NSLog(">>> nupNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
@@ -91,7 +91,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     
     @objc func pingNotification(notification: Notification) {
         guard let message = notification.userInfo!["pingResult"] else { return }
-        //print(">>> pingNotification Message: \(message)")
+        print(">>> pingNotification Message: \(message)")
         NSLog(">>> pingNotification Message: \(message)")
         if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
            let json = String(data: jsonData, encoding: String.Encoding.ascii) {
