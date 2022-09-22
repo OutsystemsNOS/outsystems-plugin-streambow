@@ -29,6 +29,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
         self.resultArray = [String]()
         self.setNotifications()
         
+        print(">>> Test Started \(command.arguments[0])")
+        
         if let testID = command.arguments[0] as? String {
             print("\n>>> Test Started <<<\n")
             NetworkTest().performTests(customerID: testID) { success in
