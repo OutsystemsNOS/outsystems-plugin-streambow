@@ -42,6 +42,8 @@ import CoreLocation
                     }
                 } else {
                     print("\n>>> Not registered <<<\n")
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not Registered!")
+                    self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
