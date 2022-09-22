@@ -9,8 +9,7 @@ import Foundation
 import FeedbackFramework
 import CoreLocation
 
-@objc(Streambow)
-class Streambow: CDVPlugin, CLLocationManagerDelegate {
+@objc(Streambow) public class Streambow: CDVPlugin, CLLocationManagerDelegate {
     var pluginResult = CDVPluginResult()
     var pluginCommand = CDVInvokedUrlCommand()
     var resultArray: [String]?
