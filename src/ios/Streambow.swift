@@ -21,7 +21,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.pingNotification(notification:)), name: Notification.Name(rawValue: "PingDiagnosticNotification"), object: nil)
     }
     
-    @objc (performTest:)
+    @objc (Streambow:)
     func performTest(_ command: CDVInvokedUrlCommand){
         self.pluginCommand = command
         self.pluginResult = nil
