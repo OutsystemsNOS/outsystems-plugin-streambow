@@ -32,7 +32,7 @@ import CoreLocation
         
         if let testID = command.arguments[0] as? String {
             print("\n>>> Test Started <<<\n")
-            NetworkTest().performTests(customerID: testID) { success in
+            let _ = NetworkTest().performTests(customerID: testID) { success in
                 if success {
                     print("\n>>> Test done <<<\n")
                     if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
