@@ -38,9 +38,18 @@
 					<string>processing</string>
 				</array>
 		</config-file>
+		
+		<!--
+		<edit-config target="*-Info.plist" target="NSAppTransportSecurity">
+				<dict>
+					<key>NSAllowsArbitraryLoads</key>
+					<true/>
+				</dict>
+		</edit-config>
+                -->
 
 		<!-- Arbitrary Loads -->
-		<config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+		<config-file target="*-Info.plist" parent="NSAppTransportSecurity" mode="merge">
 				<dict>
 					<key>NSAllowsArbitraryLoads</key>
 					<true/>
