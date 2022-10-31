@@ -1,9 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
 // swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FeedbackFramework
 import Accounts
-import BackgroundTasks
-import CallKit
 import SystemConfiguration.CaptiveNetwork
 import CommonCrypto
 import CoreBluetooth
@@ -11,6 +9,8 @@ import CoreLocation
 import CoreTelephony
 @_exported import FeedbackFramework
 import Foundation
+import LocalAuthentication
+import MachO
 import Network
 import SQLite3
 import Social
@@ -21,6 +21,64 @@ import SystemConfiguration
 import UIKit
 import WebKit
 import _Concurrency
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public func family() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getUniqueIdentifier() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getAppVersion() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getBuildVersion() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getOS() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getOSVersion() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func isScreenLocked() -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class YoutubeDiagnostic : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func show(animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func dismiss(animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func loadVideo(completion: @escaping (_ success: Foundation.NSMutableDictionary) -> Swift.Void)
+  @objc deinit
+}
+extension FeedbackFramework.YoutubeDiagnostic : FeedbackFramework.YTPlayerViewDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerViewDidBecomeReady(_ playerView: FeedbackFramework.YTPlayerView)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didPlayTime playTime: Swift.Float)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, receivedError error: FeedbackFramework.YTPlayerError)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didChangeTo state: FeedbackFramework.YTPlayerState)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didChangeTo quality: FeedbackFramework.YTPlaybackQuality)
+}
+public protocol SimpleTracerLogger : AnyObject {
+  func logTrace(_ trace: Swift.String)
+}
+@objc public class Traceroute : ObjectiveC.NSObject {
+  public var result: Swift.String {
+    get
+  }
+  public var completion: (([Swift.String : Any]) -> Swift.Void)?
+  public init(host: Swift.String)
+  @discardableResult
+  public static func trace(host: Swift.String, logger: FeedbackFramework.SimpleTracerLogger? = nil, maxTraceTTL: Swift.Int = 10, completion: (([Swift.String : Any]) -> Swift.Void)?) -> FeedbackFramework.Traceroute
+  public func start()
+  public func stop()
+  @objc deinit
+}
+extension FeedbackFramework.Traceroute : FeedbackFramework.SimplePingTraceDelegate {
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didStartWithAddress address: Foundation.Data)
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didFailWithError error: Swift.Error)
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didSendPacket packet: Foundation.Data, sequenceNumber: Swift.UInt16)
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didFailToSendPacket packet: Foundation.Data, sequenceNumber: Swift.UInt16, error: Swift.Error)
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didReceivePingResponsePacket packet: Foundation.Data, sequenceNumber: Swift.UInt16)
+  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePingTrace, didReceiveUnexpectedPacket packet: Foundation.Data)
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public func kernelVersion() -> Swift.String
+}
+@objc @_inheritsConvenienceInitializers public class SolutionData : ObjectiveC.NSObject {
+  public func solutionData() -> Foundation.NSMutableDictionary
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class Feedback : ObjectiveC.NSObject {
+  @objc public func performFeedbackDiagnostic(latitude: Swift.String, longitude: Swift.String, inOutStatus: Swift.Int, feedbackType: Swift.Int, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
 public enum ReachabilityError : Swift.Error {
   case failedToCreateWithAddress(Darwin.sockaddr, Swift.Int32)
   case failedToCreateWithHostname(Swift.String, Swift.Int32)
@@ -28,12 +86,26 @@ public enum ReachabilityError : Swift.Error {
   case unableToSetDispatchQueue(Swift.Int32)
   case unableToGetFlags(Swift.Int32)
 }
+@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
+public let ReachabilityChangedNotification: Foundation.NSNotification.Name
 extension Foundation.NSNotification.Name {
   public static let reachabilityChanged: Foundation.Notification.Name
 }
 public class Reachability {
   public typealias NetworkReachable = (FeedbackFramework.Reachability) -> ()
   public typealias NetworkUnreachable = (FeedbackFramework.Reachability) -> ()
+  @available(*, unavailable, renamed: "Connection")
+  public enum NetworkStatus : Swift.CustomStringConvertible {
+    case notReachable, reachableViaWiFi, reachableViaWWAN
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: FeedbackFramework.Reachability.NetworkStatus, b: FeedbackFramework.Reachability.NetworkStatus) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
   public enum Connection : Swift.CustomStringConvertible {
     @available(*, deprecated, renamed: "unavailable")
     case none
@@ -55,6 +127,10 @@ public class Reachability {
   public var notificationCenter: Foundation.NotificationCenter
   @available(*, deprecated, renamed: "connection.description")
   public var currentReachabilityString: Swift.String {
+    get
+  }
+  @available(*, unavailable, renamed: "connection")
+  public var currentReachabilityStatus: FeedbackFramework.Reachability.Connection {
     get
   }
   public var connection: FeedbackFramework.Reachability.Connection {
@@ -84,16 +160,21 @@ extension FeedbackFramework.Reachability {
     get
   }
 }
-extension UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) public func anchor(centerX: UIKit.NSLayoutXAxisAnchor?, centerY: UIKit.NSLayoutYAxisAnchor?, top: UIKit.NSLayoutYAxisAnchor?, leading: UIKit.NSLayoutXAxisAnchor?, bottom: UIKit.NSLayoutYAxisAnchor?, trailing: UIKit.NSLayoutXAxisAnchor?, padding: UIKit.UIEdgeInsets = .zero, size: CoreGraphics.CGSize = .zero)
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public func getCPUName() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func getCPUSpeed() -> Swift.String
+  @_Concurrency.MainActor(unsafe) public func CPUinfo() -> Swift.Dictionary<Swift.String, Swift.String>
 }
-extension UIKit.UINavigationBar {
-  @_Concurrency.MainActor(unsafe) public func transparentNavigationBar()
-  @_Concurrency.MainActor(unsafe) public func mainNavigationBar()
+@objc @_inheritsConvenienceInitializers public class WorkOrderHelperProto : ObjectiveC.NSObject {
+  public func workOrderRequest(workOrder: Swift.String, sessionID: Swift.String, testID: [Swift.String], completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
+  public func workOrderCheckRequest(workOrder: Swift.String, completion: @escaping (_ success: Swift.String) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
 }
-extension UIKit.UINavigationItem {
-  @_Concurrency.MainActor(unsafe) public func mainNavigationItemLeft(_ target: Any?, action: ObjectiveC.Selector, image: UIKit.UIImage)
-  @_Concurrency.MainActor(unsafe) public func mainNavigationItemRight(_ target: Any?, action: ObjectiveC.Selector, image: UIKit.UIImage)
+@_inheritsConvenienceInitializers @objc public class Main : ObjectiveC.NSObject {
+  @objc public func initializer()
+  @objc override dynamic public init()
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers public class NetStatus {
   public static let shared: FeedbackFramework.NetStatus
@@ -114,6 +195,34 @@ extension UIKit.UINavigationItem {
   public func startMonitoring()
   public func stopMonitoring()
 }
+public enum Environment {
+  case SBDEV
+  case SBTEST
+  case MEGAFON
+  case NOS
+  case VODAFONE
+  public static func == (a: FeedbackFramework.Environment, b: FeedbackFramework.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers open class ActivityIndicator {
+  open class var shared: FeedbackFramework.ActivityIndicator {
+    get
+  }
+  open func showActivityIndicatory(uiView: UIKit.UIView)
+  open func showActivityIndicatorInViewWithNavigationBar(uiView: UIKit.UIView)
+  open func showActivityIndicatorInViewWithNavigationBarAndLabel(uiView: UIKit.UIView, labelText: Swift.String)
+  open func showActivityIndicatorInView(uiView: UIKit.UIView)
+  open func hideActivityIndicator()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class NetworkTest : ObjectiveC.NSObject {
+  @objc public func performTests(customerID: Swift.String?, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
 public struct Units {
   public let bytes: Swift.Int64
   public var kilobytes: Swift.Double {
@@ -128,102 +237,64 @@ public struct Units {
   public init(bytes: Swift.Int64)
   public func getReadableUnit() -> Swift.String
 }
-public protocol SimpleTracerLogger : AnyObject {
-  func logTrace(_ trace: Swift.String)
-}
-@objc public class Traceroute : ObjectiveC.NSObject {
-  public var result: Swift.String {
-    get
-  }
-  public var completion: (([Swift.String : Any]) -> Swift.Void)?
-  public init(host: Swift.String)
-  @discardableResult
-  public static func trace(host: Swift.String, logger: FeedbackFramework.SimpleTracerLogger? = nil, maxTraceTTL: Swift.Int = 10, completion: (([Swift.String : Any]) -> Swift.Void)?) -> FeedbackFramework.Traceroute
-  public func start()
-  public func stop()
-  @objc deinit
-}
-extension FeedbackFramework.Traceroute : FeedbackFramework.SimplePingDelegate {
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didStartWithAddress address: Foundation.Data)
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didFailWithError error: Swift.Error)
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didSendPacket packet: Foundation.Data, sequenceNumber: Swift.UInt16)
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didFailToSendPacket packet: Foundation.Data, sequenceNumber: Swift.UInt16, error: Swift.Error)
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didReceivePingResponsePacket packet: Foundation.Data, sequenceNumber: Swift.UInt16)
-  @objc dynamic public func simplePing(_ pinger: FeedbackFramework.SimplePing, didReceiveUnexpectedPacket packet: Foundation.Data)
-}
-@objc @_inheritsConvenienceInitializers public class FileUploadHelper : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers public class FileUploadHelperProto : ObjectiveC.NSObject {
   public func fileUploadRequest(filename: Swift.String, type: Swift.Int32, imageData: Foundation.Data, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers public class PhotographData : ObjectiveC.NSObject {
-  public func photographData(fileName: Swift.String) -> Foundation.NSMutableDictionary
-  @objc override dynamic public init()
-  @objc deinit
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func anchor(centerX: UIKit.NSLayoutXAxisAnchor?, centerY: UIKit.NSLayoutYAxisAnchor?, top: UIKit.NSLayoutYAxisAnchor?, leading: UIKit.NSLayoutXAxisAnchor?, bottom: UIKit.NSLayoutYAxisAnchor?, trailing: UIKit.NSLayoutXAxisAnchor?, padding: UIKit.UIEdgeInsets = .zero, size: CoreGraphics.CGSize = .zero)
+}
+extension UIKit.UINavigationBar {
+  @_Concurrency.MainActor(unsafe) public func transparentNavigationBar()
+  @_Concurrency.MainActor(unsafe) public func mainNavigationBar()
+}
+extension UIKit.UINavigationItem {
+  @_Concurrency.MainActor(unsafe) public func mainNavigationItemLeft(_ target: Any?, action: ObjectiveC.Selector, image: UIKit.UIImage)
+  @_Concurrency.MainActor(unsafe) public func mainNavigationItemRight(_ target: Any?, action: ObjectiveC.Selector, image: UIKit.UIImage)
+}
+extension UIKit.UINavigationItem {
+  @_Concurrency.MainActor(unsafe) public func mainNavigationItemLeft(_ target: Any?, action: ObjectiveC.Selector, text: Swift.String?, image: UIKit.UIImage?, color: UIKit.UIColor?, font: UIKit.UIFont?)
+  @_Concurrency.MainActor(unsafe) public func mainNavigationItemRight(_ target: Any?, action: ObjectiveC.Selector, text: Swift.String?, image: UIKit.UIImage?, color: UIKit.UIColor?, font: UIKit.UIFont?)
+}
+extension Swift.Int {
+  public static var random: Swift.Int {
+    get
+  }
+  public static func random(n: Swift.Int) -> Swift.Int
+  public static func random(min: Swift.Int, max: Swift.Int) -> Swift.Int
+}
+extension Swift.Double {
+  public static var random: Swift.Double {
+    get
+  }
+  public static func random(min: Swift.Double, max: Swift.Double) -> Swift.Double
+}
+extension Swift.Float {
+  public static var random: Swift.Float {
+    get
+  }
+  public static func random(min: Swift.Float, max: Swift.Float) -> Swift.Float
+}
+extension CoreGraphics.CGFloat {
+  public static var randomSign: CoreGraphics.CGFloat {
+    get
+  }
+  public static var random: CoreGraphics.CGFloat {
+    get
+  }
+  public static func random(min: CoreGraphics.CGFloat, max: CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
 }
 extension UIKit.UIDevice {
-  @_Concurrency.MainActor(unsafe) public func getCPUName() -> Swift.String
-  @_Concurrency.MainActor(unsafe) public func getCPUSpeed() -> Swift.String
-  @_Concurrency.MainActor(unsafe) public func CPUinfo() -> Swift.Dictionary<Swift.String, Swift.String>
   @_Concurrency.MainActor(unsafe) public var modelName: Swift.String {
     get
   }
 }
-@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class YoutubeDiagnostic : UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) public func show(animated: Swift.Bool)
-  @_Concurrency.MainActor(unsafe) public func dismiss(animated: Swift.Bool)
-  @_Concurrency.MainActor(unsafe) public func loadVideo(completion: @escaping (_ success: Foundation.NSMutableDictionary) -> Swift.Void)
-  @objc deinit
-}
-extension FeedbackFramework.YoutubeDiagnostic : FeedbackFramework.YTPlayerViewDelegate {
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerViewDidBecomeReady(_ playerView: FeedbackFramework.YTPlayerView)
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didPlayTime playTime: Swift.Float)
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, receivedError error: FeedbackFramework.YTPlayerError)
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didChangeTo state: FeedbackFramework.YTPlayerState)
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func playerView(_ playerView: FeedbackFramework.YTPlayerView, didChangeTo quality: FeedbackFramework.YTPlaybackQuality)
-}
-@objc @_inheritsConvenienceInitializers public class LocationManager : ObjectiveC.NSObject, CoreLocation.CLLocationManagerDelegate {
-  @objc override dynamic public init()
-  public func startGPSUpdating()
-  public func stopGPSUpdating(_ erro: Swift.Error?)
-  @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didUpdateLocations locations: [CoreLocation.CLLocation])
-  @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didFailWithError error: Swift.Error)
-  @objc deinit
-}
-@_hasMissingDesignatedInitializers open class ActivityIndicator {
-  open class var shared: FeedbackFramework.ActivityIndicator {
-    get
-  }
-  open func showActivityIndicatory(uiView: UIKit.UIView)
-  open func showActivityIndicatorInViewWithNavigationBar(uiView: UIKit.UIView)
-  open func showActivityIndicatorInViewWithNavigationBarAndLabel(uiView: UIKit.UIView, labelText: Swift.String)
-  open func showActivityIndicatorInView(uiView: UIKit.UIView)
-  open func hideActivityIndicator()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers public class Feedback : ObjectiveC.NSObject {
-  public func performFeedbackDiagnostic(latitude: Swift.String, longitude: Swift.String, inOutStatus: Swift.Int, feedbackType: Swift.Int, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc public class Main : ObjectiveC.NSObject {
-  @objc public func initializer()
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers public class FloorPlanTest : ObjectiveC.NSObject {
-  public func performFloorPlanTests(completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers public class ScheduleTest : ObjectiveC.NSObject {
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc public class NetworkTest : ObjectiveC.NSObject {
-  @objc public func performTests(customerID: Swift.String?, completion: @escaping (_ success: Swift.Bool) -> Swift.Void)
-  @objc override dynamic public init()
-  @objc deinit
-}
+@available(*, unavailable, renamed: "Connection")
+extension FeedbackFramework.Reachability.NetworkStatus : Swift.Equatable {}
+@available(*, unavailable, renamed: "Connection")
+extension FeedbackFramework.Reachability.NetworkStatus : Swift.Hashable {}
 extension FeedbackFramework.Reachability.Connection : Swift.Equatable {}
 extension FeedbackFramework.Reachability.Connection : Swift.Hashable {}
+extension FeedbackFramework.Environment : Swift.Equatable {}
+extension FeedbackFramework.Environment : Swift.Hashable {}
