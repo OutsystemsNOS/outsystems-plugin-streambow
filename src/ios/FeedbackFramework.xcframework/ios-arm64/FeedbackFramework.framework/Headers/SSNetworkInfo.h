@@ -50,4 +50,7 @@
 // Connected to Cellular Network?
 + (BOOL)connectedToCellNetwork;
 
+// Is Roaming
++ (BOOL)isRoaming;
+
 @end
