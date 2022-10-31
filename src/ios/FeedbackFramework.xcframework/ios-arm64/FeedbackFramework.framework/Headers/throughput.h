@@ -36,8 +36,8 @@ typedef struct {
     long timeTotal;
 } throughput_result_internal;
 
-//throughput_result_internal internald;
-//throughput_result_internal internalu;
+throughput_result_internal internald;
+throughput_result_internal internalu;
 
 // Returns -1 in case of error (e.g. invalid URL), 0 if everything OK and 1 in case of timeout
 int throughput_upload_test(const char *url, unsigned long bytes, throughput_result *result, unsigned int timeout, int type, int numParallel);
