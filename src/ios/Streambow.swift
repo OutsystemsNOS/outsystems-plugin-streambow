@@ -35,7 +35,7 @@ import CoreLocation
             let _ = NetworkTest().performTests(customerID: testID) { success in
                 if success {
                     print("\n>>> Test done <<<\n")
-                    if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
+                    if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
                        let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                         self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                         self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
@@ -57,7 +57,7 @@ import CoreLocation
         if message != "" {
             self.resultArray?.append(message)
             if self.resultArray?.count == 3 {
-                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
+                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
                    let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                     self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
@@ -77,8 +77,8 @@ import CoreLocation
         guard let message = notification.userInfo!["dwResult"] else { return }
         print(">>> dwNotification Message: \(message)")
         //NSLog(">>> dwNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .download)
         }
     }
@@ -88,8 +88,8 @@ import CoreLocation
         guard let message = notification.userInfo!["upResult"] else { return }
         print(">>> nupNotification Message: \(message)")
         //NSLog(">>> nupNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .upload)
         }
     }
@@ -99,8 +99,8 @@ import CoreLocation
         guard let message = notification.userInfo!["pingResult"] else { return }
         print(">>> pingNotification Message: \(message)")
         //NSLog(">>> pingNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .ping)
         }
     }
