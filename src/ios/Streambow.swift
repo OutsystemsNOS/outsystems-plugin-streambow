@@ -36,7 +36,7 @@ import CoreLocation
                 if success {
                     print("\n>>> Test done <<<\n")
                     if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
-                       let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+                       let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                         self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                         self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                     }
@@ -58,7 +58,7 @@ import CoreLocation
             self.resultArray?.append(message)
             if self.resultArray?.count == 3 {
                 if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
-                   let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+                   let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                     self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
