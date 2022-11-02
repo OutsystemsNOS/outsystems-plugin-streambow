@@ -37,17 +37,17 @@ import CoreLocation
                     print("\n>>> Test done <<<\n")
                     if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
                        let json = String(data: jsonData, encoding: String.Encoding.ascii) {
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsString: json)
+                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                         self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                     }
                 } else {
                     print("\n>>> Not registered <<<\n")
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Error: Not Registered!")
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not Registered!")
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
-            self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Error: missing testID input parameter")
+            self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: missing testID input parameter")
             self.commandDelegate!.send(pluginResult, callbackId: self.pluginCommand.callbackId)
             return
         }
@@ -59,12 +59,12 @@ import CoreLocation
             if self.resultArray?.count == 3 {
                 if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
                    let json = String(data: jsonData, encoding: String.Encoding.ascii) {
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsString: json)
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
-            self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Error: SDK results for \(testType.rawValue) test was an empty string")
+            self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: SDK results for \(testType.rawValue) test was an empty string")
             self.commandDelegate!.send(pluginResult, callbackId: self.pluginCommand.callbackId)
             return
         }
