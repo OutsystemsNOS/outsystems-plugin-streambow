@@ -35,6 +35,7 @@ import CoreLocation
             let _ = NetworkTest().performTests(customerID: testID) { success in
                 if success {
                     print("\n>>> Test done <<<\n")
+                                                          
                     if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
                        let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                         self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
