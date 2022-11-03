@@ -34,31 +34,13 @@ import CoreLocation
             print("\n>>> Test Started <<<\n")
             let _ = NetworkTest().performTests(customerID: testID) { success in
                 if success {
-                    print("\n>>> Test done <<<\n")
-                                       
-                    if let data = self.resultArray.data(using: .utf8) {
-                      let myJson = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as Any
-
-                      if myJson is String {
-                        print(myJson) // <-- This will not print anything as myJson is not a string
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: myJson)
-                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
-                      }
-
-                      if let dict = myJson as? [String: Any] {
-                        print(dict.keys) // <-- This will print a list of keys 
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: dict.keys)
-                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
-                      }
-                    }
+                    print("\n>>> Test done <<<\n")                                      
                     
-                    /*
                     if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
                        let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                         self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                         self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                     }
-                    */
                 } else {
                     print("\n>>> Not registered <<<\n")
                     self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not Registered!")
@@ -76,28 +58,14 @@ import CoreLocation
         if message != "" {
             self.resultArray?.append(message)
             if self.resultArray?.count == 3 {
-                      if let data = self.resultArray.data(using: .utf8) {
-                      let myJson = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as Any
+               if let data = self.resultArray.data(using: .utf8) {
+                  let myJson = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as Any
 
-                      if myJson is String {
-                        print(myJson) // <-- This will not print anything as myJson is not a string
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: myJson)
-                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
-                      }
-
-                      if let dict = myJson as? [String: Any] {
-                        print(dict.keys) // <-- This will print a list of keys 
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: dict.keys)
-                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
-                      }
-                    }
-                /*
                 if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
                    let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                     self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
-                */
             }
         } else {
             self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: SDK results for \(testType.rawValue) test was an empty string")
