@@ -36,8 +36,6 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
                     print("\n>>> Test done <<<\n")
                 } else {
                     print("\n>>> Not registered <<<\n")
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not registered")
-                    self.commandDelegate!.send(pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
