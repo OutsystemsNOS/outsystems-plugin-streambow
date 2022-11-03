@@ -9,7 +9,8 @@ import Foundation
 import FeedbackFramework
 import CoreLocation
 
-@objc(Streambow) public class Streambow: CDVPlugin, CLLocationManagerDelegate {
+@objc(Streambow)
+class Streambow: CDVPlugin, CLLocationManagerDelegate {
     var pluginResult = CDVPluginResult()
     var pluginCommand = CDVInvokedUrlCommand()
     var resultArray: [String]?
@@ -28,23 +29,13 @@ import CoreLocation
         self.resultArray = [String]()
         self.setNotifications()
         
-        print(">>> Test Started \(command.arguments[0])")
-        
         if let testID = command.arguments[0] as? String {
             print("\n>>> Test Started <<<\n")
-            let _ = NetworkTest().performTests(customerID: testID) { success in
+            NetworkTest().performTests(customerID: testID) { success in
                 if success {
-                    print("\n>>> Test done <<<\n")                                      
-                    
-                    if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: JSONSerialization.WritingOptions.prettyPrinted),
-                       let json = String(data: jsonData, encoding: String.Encoding.utf8) {
-                        self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: jsonData)
-                        self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
-                    }
+                    print("\n>>> Test done <<<\n")
                 } else {
                     print("\n>>> Not registered <<<\n")
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not Registered!")
-                    self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
@@ -58,11 +49,12 @@ import CoreLocation
         if message != "" {
             self.resultArray?.append(message)
             if self.resultArray?.count == 3 {
-                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: JSONSerialization.WritingOptions.prettyPrinted),
-                   let json = String(data: jsonData, encoding: String.Encoding.utf8) {
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: jsonData)
+                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
+                   let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
+            }
         } else {
             self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: SDK results for \(testType.rawValue) test was an empty string")
             self.commandDelegate!.send(pluginResult, callbackId: self.pluginCommand.callbackId)
@@ -73,34 +65,28 @@ import CoreLocation
     
     //Streambow Notification Methods
     @objc func dwNotification(notification: Notification) {
-        print(">>> dwNotification start")
         guard let message = notification.userInfo!["dwResult"] else { return }
-        print(">>> dwNotification Message: \(message)")
-        //NSLog(">>> dwNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
+//        print(">>> dwNotification Message: \(message)")
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
+           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json, testType: .download)
         }
     }
     
     @objc func upNotification(notification: Notification) {
-        print(">>> nupNotification start")
         guard let message = notification.userInfo!["upResult"] else { return }
-        print(">>> nupNotification Message: \(message)")
-        //NSLog(">>> nupNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
+//        print(">>> nupNotification Message: \(message)")
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
+           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json, testType: .upload)
         }
     }
     
     @objc func pingNotification(notification: Notification) {
-        print(">>> pingNotification start")
         guard let message = notification.userInfo!["pingResult"] else { return }
-        print(">>> pingNotification Message: \(message)")
-        //NSLog(">>> pingNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
+//        print(">>> pingNotification Message: \(message)")
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: .prettyPrinted),
+           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
             self.cordovaCallback(message: json, testType: .ping)
         }
     }
@@ -112,4 +98,3 @@ enum TestType: String {
     case upload = "upload"
     case ping = "ping"
 }
-
