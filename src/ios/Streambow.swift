@@ -36,6 +36,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
                     print("\n>>> Test done <<<\n")
                 } else {
                     print("\n>>> Not registered <<<\n")
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Error: Not registered")
+                    self.commandDelegate!.send(pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
         } else {
@@ -51,7 +53,7 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
             if self.resultArray?.count == 3 {
                 if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: .prettyPrinted),
                    let json = String(data: jsonData, encoding: String.Encoding.ascii) {
-                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
+                    self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: jsonData)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
             }
