@@ -125,9 +125,8 @@
 		<source-file src="src/android/build-extras.gradle" target-dir="app" />
 
 		<!-- Streambow SDK -->
-		<!-- <resource-file src="src/android/lib/XperienceLib-serverNos-App-release.aar" target="libs/XperienceLib-serverNos-App-release.aar" /> -->
-		<!--<resource-file src="src/android/libs/XperienceLib.aar" target="libs/XperienceLib.aar" />-->
-		<source-file src="src/android/libs/XperienceLib.aar" target-dir="libs" /> 
+		<!-- <source-file src="src/android/libs/XperienceLib.aar" target-dir="libs" /> -->
+		<source-file src="src/android/libs/XperienceLib-28102022-17h29.aar" target-dir="libs" />		
 
 		<!-- Hook for editing settings.gradle -->
 		<hook type="before_plugin_install" src="hooks/edit_settings_gradle.js"/>
