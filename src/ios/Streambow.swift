@@ -49,8 +49,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
         if message != "" {
             self.resultArray?.append(message)
             if self.resultArray?.count == 3 {
-                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: []),
-                   let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+                if let jsonData = try? JSONSerialization.data( withJSONObject: self.resultArray!, options: [.prettyPrinted]),
+                   let json = String(data: jsonData, encoding: String.Encoding.utf8) {
                     self.pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: json)
                     self.commandDelegate!.send(self.pluginResult, callbackId: self.pluginCommand.callbackId)
                 }
@@ -67,8 +67,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     @objc func dwNotification(notification: Notification) {
         guard let message = notification.userInfo!["dwResult"] else { return }
 //        print(">>> dwNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: [.prettyPrinted]),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .download)
         }
     }
@@ -76,8 +76,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     @objc func upNotification(notification: Notification) {
         guard let message = notification.userInfo!["upResult"] else { return }
 //        print(">>> nupNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: [.prettyPrinted]),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .upload)
         }
     }
@@ -85,8 +85,8 @@ class Streambow: CDVPlugin, CLLocationManagerDelegate {
     @objc func pingNotification(notification: Notification) {
         guard let message = notification.userInfo!["pingResult"] else { return }
 //        print(">>> pingNotification Message: \(message)")
-        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: []),
-           let json = String(data: jsonData, encoding: String.Encoding.ascii) {
+        if let jsonData = try? JSONSerialization.data( withJSONObject: message, options: [.prettyPrinted]),
+           let json = String(data: jsonData, encoding: String.Encoding.utf8) {
             self.cordovaCallback(message: json, testType: .ping)
         }
     }
