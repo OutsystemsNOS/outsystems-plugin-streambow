@@ -83,6 +83,8 @@
 	</platform>
 
 	<platform name="android">
+		<!-- Hook for fixing AndroidManifest File Provider conflict -->
+		<hook type="after_prepare" src="hooks/ManifestFileProviderFix.js"/>
 
 		 <config-file target="../../config.xml" parent="/widget">
             <custom-preference name="android-manifest/@xmlns:tools" value="http://schemas.android.com/tools" />
