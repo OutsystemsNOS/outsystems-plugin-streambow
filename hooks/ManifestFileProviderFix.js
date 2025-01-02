@@ -12,7 +12,7 @@ module.exports = function(context) {
             var newManifest = data.replace('android:name="androidx.core.content.FileProvider"', 'android:name="androidx.core.content.FileProvider" tools:replace="android:authorities"');
             newManifest = newManifest.replace('android:resource="@xml/file_viewer_paths"', 'android:resource="@xml/file_viewer_paths" tools:replace="android:resource"');
             //add new replace to fix FILE_PROVIDER_PATHS error
-            newManifest = newManifest.replace('android.support.FILE_PROVIDER_PATHS', 'android.support.FILE_PROVIDER_PATHS tools:replace="android:resource"');
+            newManifest = newManifest.replace('android:name="android.support.FILE_PROVIDER_PATHS"', 'android:name="android.support.FILE_PROVIDER_PATHS" tools:replace="android:resource"');
 
             fs.writeFile(manifestPath, newManifest, (err) => {
                 if (err) throw err;
